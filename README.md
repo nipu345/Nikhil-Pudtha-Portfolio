@@ -12,9 +12,9 @@ _  _ _ _  _ _  _ _ _       ___  _  _ ___  ___ _  _ ____
 
 ## The idea behind it
 
-The site started as a clean, static four-page portfolio: a hero, project cards, a resume, and hobbies. It looked professional but felt like every other portfolio, so I wanted to make it more creative and interactive without turning it into a gimmick.
+The site started as a clean, static four-page portfolio: a hero, project cards, a resume, and hobbies. It looked professional but felt like every other portfolio, so I wanted to make it more creative and interactive.
 
-I picked a "systems / data-flow" concept because most of my work is pipelines: documents → OCR → RAG retrieval, sales data → forecasting models → dashboard. The redesign was built one feature at a time, and each part was committed on its own, so the commit history follows the build step by step.
+I picked a "systems / data-flow" concept because most of my work is pipelines: documents → OCR → RAG retrieval, sales data → forecasting models → dashboard. 
 
 It's still plain HTML, CSS, and vanilla JavaScript: no frameworks, no build step, no dependencies. GitHub Pages serves the files exactly as they are in this repo.
 
