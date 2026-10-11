@@ -400,3 +400,58 @@
   }, { threshold: 0.4 });
   io.observe(host);
 })();
+
+/* ---------- Live GitHub activity ----------
+   Pulls public repos from GitHub's API for the Coding hobby card:
+   repo count, last push, language mix, and the latest repos.
+   Cached for an hour per visitor to stay under GitHub's rate limit. */
+(() => {
+  const host = document.querySelector('.gh-activity[data-user]');
+  if (!host) return;
+  const user = host.dataset.user;
+  const cacheKey = 'gh-repos:' + user;
+  const COLORS = ['--tag1-text', '--tag2-text', '--tag3-text', '--tag4-text'];
+
+  const ago = iso => {
+    const s = (Date.now() - new Date(iso)) / 1000;
+    const steps = [[31536000, 'y'], [2592000, 'mo'], [604800, 'w'], [86400, 'd'], [3600, 'h'], [60, 'm']];
+    for (const [secs, unit] of steps) if (s >= secs) return Math.floor(s / secs) + unit + ' ago';
+    return 'just now';
+  };
+  const esc = str => String(str).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  const render = all => {
+    const repos = all.filter(r => !r.fork).sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+    if (!repos.length) return;
+
+    const counts = {};
+    repos.forEach(r => { if (r.language) counts[r.language] = (counts[r.language] || 0) + 1; });
+    const langs = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 4);
+    const total = langs.reduce((n, [, c]) => n + c, 0);
+
+    host.innerHTML = `
+      <div class="gh-head"><span class="live-dot"></span>
+        <span><strong>${repos.length}</strong> repos &middot; pushed ${ago(repos[0].pushed_at)}</span></div>
+      <div class="gh-langs">${langs.map(([, c], i) =>
+        `<span style="flex:${c};background:var(${COLORS[i]});animation-delay:${i * 100}ms"></span>`).join('')}</div>
+      <div class="gh-legend">${langs.map(([l, c], i) =>
+        `<span><i style="background:var(${COLORS[i]})"></i>${esc(l)} ${Math.round((c / total) * 100)}%</span>`).join('')}</div>
+      <ul class="gh-repos">${repos.slice(0, 3).map(r =>
+        `<li><a href="${esc(r.html_url)}" target="_blank" rel="noopener noreferrer">${esc(r.name)}</a>
+         <time datetime="${esc(r.pushed_at)}">${ago(r.pushed_at)}</time></li>`).join('')}</ul>`;
+    host.hidden = false;
+  };
+
+  try {
+    const cached = JSON.parse(sessionStorage.getItem(cacheKey) || 'null');
+    if (cached && Date.now() - cached.at < 3600e3) return render(cached.repos);
+  } catch (_) { /* storage unavailable; just fetch */ }
+
+  fetch(`https://api.github.com/users/${encodeURIComponent(user)}/repos?per_page=100&sort=pushed`)
+    .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
+    .then(repos => {
+      render(repos);
+      try { sessionStorage.setItem(cacheKey, JSON.stringify({ at: Date.now(), repos })); } catch (_) {}
+    })
+    .catch(() => { /* offline or rate-limited: leave the card as it was */ });
+})();

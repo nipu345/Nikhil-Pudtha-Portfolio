@@ -270,6 +270,22 @@ main{ padding-top: 2.5rem; }
 .hobby-card h3{ font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
 .hobby-card p{ margin: 0; color: var(--text); font-size: 0.96rem; }
 
+/* Live GitHub activity on the Coding hobby card (filled by main.js;
+   stays hidden if GitHub can't be reached) */
+.gh-activity{ margin-top: 1.2rem; padding-top: 1rem; border-top: 1px dashed var(--border); font-family: var(--mono); font-size: 0.74rem; }
+.gh-head{ display: flex; align-items: center; gap: 0.45rem; color: var(--text-muted); }
+.gh-head strong{ color: var(--ink); font-weight: 600; }
+.gh-langs{ display: flex; height: 6px; margin: 0.75rem 0 0.45rem; border-radius: 3px; overflow: hidden; gap: 2px; }
+.gh-langs span{ transform-origin: left; animation: gh-grow .8s cubic-bezier(.2,.7,.3,1) both; }
+@keyframes gh-grow{ from{ scale: 0 1; } }
+.gh-legend{ display: flex; flex-wrap: wrap; gap: 0.3rem 0.8rem; color: var(--text-muted); }
+.gh-legend i{ display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 0.35rem; }
+.gh-repos{ list-style: none; margin: 0.85rem 0 0; padding: 0; }
+.gh-repos li{ display: flex; justify-content: space-between; gap: 1rem; padding: 0.2rem 0; }
+.gh-repos a{ color: var(--ink); font-weight: 600; text-decoration: none; position: relative; z-index: 2; }
+.gh-repos a:hover{ color: var(--accent); }
+.gh-repos time{ color: var(--text-muted); white-space: nowrap; }
+
 /* ---------- PROJECTS ---------- */
 .project-list{ display: flex; flex-direction: column; gap: 1.4rem; padding-bottom: 4rem; }
 .project-card{
