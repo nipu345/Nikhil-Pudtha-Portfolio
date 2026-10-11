@@ -7,8 +7,9 @@
   <meta name="description" content="Portfolio of Nikhil Pudtha — Computer Science student at CU Boulder.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
 </head>
 <body>
 
@@ -98,7 +99,7 @@
     <div class="wrap">
       <section class="hero">
         <div>
-          <div class="eyebrow">Hi, I'm</div>
+          <div class="eyebrow"><span class="eyebrow-prompt">&gt;</span> Hi, I'm</div>
           <h1 class="hero-name">Nikhil<br>Pudtha</h1>
           <p class="hero-role">Computer Science Student, Full-Stack Developer at Mulongo Inc, &amp; IT Analyst at CU Boulder</p>
           <p class="hero-bio">I build full-stack products and AI-powered tools — currently working as a Full-Stack Developer at Mulongo Inc and an IT Service Center Student Analyst for CU Boulder.</p>
@@ -122,8 +123,13 @@
           </div>
         </div>
 
-        <div class="avatar-card">
-          <img src="images/profile.jpeg" alt="Nikhil Pudtha">
+        <div class="graph">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div class="graph-hub">
+            <span class="graph-hub-ring" aria-hidden="true"></span>
+            <img src="images/profile.jpeg" alt="Nikhil Pudtha">
+          </div>
+          <div class="graph-caption" aria-hidden="true"><span class="live-dot"></span>skills &rarr; nikhil</div>
         </div>
       </section>
     </div>
