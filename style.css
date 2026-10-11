@@ -196,9 +196,10 @@ main{ padding-top: 2.5rem; }
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
   padding: 0.4em 0.75em;
   box-shadow: 0 4px 14px var(--shadow);
-  cursor: default; user-select: none;
+  text-decoration: none; user-select: none;
   transition: opacity .2s ease, border-color .2s ease, scale .2s ease;
 }
+.graph-node:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
 .graph-node::before{ content: ""; width: 0.55em; height: 0.55em; border-radius: 50%; }
 .graph-node[data-tag="1"]::before{ background: var(--tag1-text); }
 .graph-node[data-tag="2"]::before{ background: var(--tag2-text); }
@@ -290,7 +291,67 @@ main{ padding-top: 2.5rem; }
 .project-card ul{ padding-left: 1.2rem; }
 .project-card li{ margin: 0.3rem 0; }
 .tags{ display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
-.tag{ font-size: 0.82rem; font-weight: 700; padding: 0.35rem 0.85rem; border-radius: var(--radius-sm); }
+.tag{
+  font-size: 0.82rem; font-weight: 700; padding: 0.35rem 0.85rem; border-radius: var(--radius-sm);
+  cursor: pointer; box-shadow: inset 0 0 0 0 currentColor;
+  transition: box-shadow .15s ease;
+}
+.tag:hover, .tag.is-match{ box-shadow: inset 0 0 0 1.5px currentColor; }
+
+/* Stack filter (chips are built by main.js from the project tags) */
+.stack-filter{
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem;
+  margin: -1rem 0 0;
+}
+.chip{
+  font-family: var(--mono); font-size: 0.78rem; font-weight: 600;
+  color: var(--text); background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0.4rem 0.75rem; cursor: pointer;
+  transition: border-color .15s ease, color .15s ease, background .15s ease;
+}
+.chip:hover{ border-color: var(--accent); color: var(--ink); }
+.chip[aria-pressed="true"]{ background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.chip:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+.stack-count{ display: block; font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted); margin: 0.7rem 0 1.6rem; }
+
+.project-card{ transition: opacity .3s ease, filter .3s ease, transform .3s ease; }
+.project-card.is-dimmed{ opacity: 0.35; filter: grayscale(1); transform: scale(0.985); }
+
+/* Project pipelines (stages are built by main.js from data-stages) */
+.pipeline{
+  display: flex; align-items: center;
+  margin: 0.3rem 0 1.1rem; padding: 0.15rem 0 0.35rem;
+  overflow-x: auto; scrollbar-width: none;
+}
+.pipeline::-webkit-scrollbar{ display: none; }
+.pipe-stage{
+  flex-shrink: 0;
+  font-family: var(--mono); font-size: 0.74rem; font-weight: 600; color: var(--ink);
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 0.35rem 0.65rem; white-space: nowrap;
+  transition: border-color .3s ease;
+}
+.project-card.is-live .pipe-stage:last-child{ border-color: var(--accent); }
+.pipe-link{
+  position: relative; flex: 1 0 1.6rem; max-width: 4.5rem; height: 2px;
+  background: repeating-linear-gradient(90deg, var(--border) 0 4px, transparent 4px 7px);
+}
+.pipe-link::after{
+  content: ""; position: absolute; top: 50%; left: 0;
+  width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%;
+  background: var(--accent); opacity: 0;
+  animation: pipe-flow 1.6s linear infinite;
+  animation-delay: calc(var(--i) * 0.4s);
+  animation-play-state: paused;
+}
+.project-card.is-live .pipe-link::after{ animation-play-state: running; }
+.project-card.is-dimmed .pipe-link::after{ animation-play-state: paused; opacity: 0; }
+@keyframes pipe-flow{
+  0%{ left: 0; opacity: 0; }
+  15%, 85%{ opacity: 1; }
+  100%{ left: 100%; opacity: 0; }
+}
 
 /* ---------- RESUME ---------- */
 .resume-card{
@@ -332,4 +393,14 @@ footer{ padding: 2.5rem 0 3.5rem; text-align: center; color: var(--text-muted); 
   .navlinks{ overflow-x: auto; }
   .skills-grid{ grid-template-columns: 1fr; }
   .r-entry-top{ flex-direction: column; gap: 0.15rem; }
+  .stack-filter{
+    flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+    margin-right: -1.5rem; padding-right: 1.5rem;
+  }
+  .stack-filter::-webkit-scrollbar{ display: none; }
+  .chip{ flex-shrink: 0; }
+  .stack-filter, .pipeline{
+    -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent);
+            mask-image: linear-gradient(90deg, #000 85%, transparent);
+  }
 }

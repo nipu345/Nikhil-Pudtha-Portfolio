@@ -7,8 +7,9 @@
   <meta name="description" content="Things Nikhil Pudtha has built.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
 </head>
 <body>
 
@@ -59,6 +60,8 @@
         <p class="page-sub">Things I've built</p>
       </div>
 
+      <div class="stack-filter" role="toolbar" aria-label="Filter projects by technology"></div>
+
       <div class="project-list">
 
         <article class="project-card">
@@ -71,6 +74,7 @@
             <a class="gh-link" href="https://github.com/nipu345/prism" target="_blank" rel="noopener noreferrer" aria-label="View Prism on GitHub"><svg viewBox="0 0 16 16" width="15" height="15"><use href="#ico-github-mark"></use></svg></a>
           </div>
           <div class="project-kicker">B2B Sales Analytics Platform</div>
+          <div class="pipeline" data-stages="Sales data|Forecast agents ×3|FastAPI|React dashboard"></div>
           <ul>
             <li>Applied numerical optimization and model selection (scipy, statsmodels, scikit-learn) to architect three ML-driven forecasting agents for data-driven revenue projections across multiple risk scenarios.</li>
             <li>Built a FastAPI backend and React frontend with Supabase for real-time data storage and authentication.</li>
@@ -81,6 +85,8 @@
             <span class="tag" style="background:var(--tag3-bg);color:var(--tag3-text)">React</span>
             <span class="tag" style="background:var(--tag4-bg);color:var(--tag4-text)">Supabase</span>
             <span class="tag" style="background:var(--tag1-bg);color:var(--tag1-text)">Node.js</span>
+            <span class="tag" style="background:var(--tag2-bg);color:var(--tag2-text)">Python</span>
+            <span class="tag" style="background:var(--tag3-bg);color:var(--tag3-text)">scikit-learn</span>
           </div>
         </article>
 
@@ -93,6 +99,7 @@
             <h3>Document Intelligence Pipeline</h3>
           </div>
           <div class="project-kicker">NLP Pipeline &middot; Pfizer AI Externship</div>
+          <div class="pipeline" data-stages="Vendor PDFs|OCR|Chunk + embed|RAG retrieval|Answers"></div>
           <ul>
             <li>Built an end-to-end NLP pipeline using OCR (Tesseract, PaddleOCR) and RAG to extract, classify, and retrieve data from pharmaceutical vendor documents.</li>
             <li>Developed and optimized a RAG-based retrieval system with LlamaIndex and open-source LLMs (Mistral, Phi-2), improving performance through chunking and model tuning.</li>
@@ -115,6 +122,7 @@
             <a class="gh-link" href="https://github.com/nipu345/StudentSteals" target="_blank" rel="noopener noreferrer" aria-label="View StudentSteals on GitHub"><svg viewBox="0 0 16 16" width="15" height="15"><use href="#ico-github-mark"></use></svg></a>
           </div>
           <div class="project-kicker">AI Student Finance App &middot; HackCU12</div>
+          <div class="pipeline" data-stages="Bank sync|Categorize|Gemini coach|Insights"></div>
           <ul>
             <li>Built a full-stack AI-powered mobile and web app integrating Google Gemini for personalized financial coaching and Google Places API for proximity-based deal discovery.</li>
             <li>Designed a bank sync system with real-time transaction categorization and an AI budget coach that generates spending insights from user financial data.</li>
@@ -137,6 +145,7 @@
             <a class="gh-link" href="https://github.com/nipu345/Rundown" target="_blank" rel="noopener noreferrer" aria-label="View Rundown on GitHub"><svg viewBox="0 0 16 16" width="15" height="15"><use href="#ico-github-mark"></use></svg></a>
           </div>
           <div class="project-kicker">College Community Forum Platform</div>
+          <div class="pipeline" data-stages="Sign-up|Email verify|PostgreSQL|Communities"></div>
           <ul>
             <li>Designed the PostgreSQL schema for users, communities, posts, memberships, and likes, and documented the data model via an ERD to support role-based access.</li>
             <li>Built email verification for user registration using Nodemailer with secure token-based validation.</li>

@@ -6,7 +6,7 @@
    Skill nodes sit on a ring around the profile photo (the hub).
    Data packets flow along the edges into the hub; nodes drift
    gently and lean toward the cursor. Hovering a node lights up
-   its connections. */
+   its connections; clicking one opens Projects filtered to it. */
 (() => {
   const graph = document.querySelector('.graph');
   if (!graph) return;
@@ -17,23 +17,26 @@
   const ring = graph.querySelector('.graph-hub-ring');
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // [id, label, color slot 1-4]. Order matters: neighbors on the ring get wired together.
+  // [id, label, color slot 1-4, project tag to filter by].
+  // Order matters: neighbors on the ring get wired together.
   const skills = [
-    ['python', 'Python', 1],
-    ['ml', 'scikit-learn', 3],
-    ['rag', 'RAG / LLMs', 2],
-    ['fastapi', 'FastAPI', 4],
-    ['postgres', 'PostgreSQL', 1],
-    ['supabase', 'Supabase', 3],
-    ['react', 'React', 2],
-    ['node', 'Node.js', 4],
+    ['python', 'Python', 1, 'Python'],
+    ['ml', 'scikit-learn', 3, 'scikit-learn'],
+    ['rag', 'RAG / LLMs', 2, 'RAG'],
+    ['fastapi', 'FastAPI', 4, 'FastAPI'],
+    ['postgres', 'PostgreSQL', 1, 'PostgreSQL'],
+    ['supabase', 'Supabase', 3, 'Supabase'],
+    ['react', 'React', 2, 'React'],
+    ['node', 'Node.js', 4, 'Node.js'],
   ];
 
   const HUB = { x: 50, y: 50 };
-  const nodes = skills.map(([id, label, tag], i) => {
+  const nodes = skills.map(([id, label, tag, stack], i) => {
     const angle = (i / skills.length) * Math.PI * 2 - Math.PI / 2 + Math.PI / skills.length;
-    const el = document.createElement('span');
+    const el = document.createElement('a');
     el.className = 'graph-node';
+    el.href = 'projects.html?stack=' + encodeURIComponent(stack);
+    el.title = 'See ' + label + ' projects';
     el.dataset.tag = tag;
     el.textContent = label;
     graph.appendChild(el);
@@ -83,6 +86,8 @@
   nodes.forEach(n => {
     n.el.addEventListener('pointerenter', () => setActive(active = n));
     n.el.addEventListener('pointerleave', () => setActive(active = null));
+    n.el.addEventListener('focus', () => setActive(active = n));
+    n.el.addEventListener('blur', () => setActive(active = null));
   });
 
   placeAll();
@@ -162,4 +167,103 @@
     requestAnimationFrame(frame);
   };
   requestAnimationFrame(frame);
+})();
+
+/* ---------- Project pipelines ----------
+   Each <div class="pipeline" data-stages="A|B|C"> becomes a row of
+   stages with packets flowing between them. Packets only run while
+   the card is near the middle of the screen. */
+(() => {
+  const pipelines = document.querySelectorAll('.pipeline[data-stages]');
+  if (!pipelines.length) return;
+
+  pipelines.forEach(p => {
+    const stages = p.dataset.stages.split('|');
+    p.setAttribute('role', 'img');
+    p.setAttribute('aria-label', 'Pipeline: ' + stages.join(' to '));
+    stages.forEach((label, i) => {
+      if (i) {
+        const link = document.createElement('span');
+        link.className = 'pipe-link';
+        link.style.setProperty('--i', i);
+        p.append(link);
+      }
+      const stage = document.createElement('span');
+      stage.className = 'pipe-stage';
+      stage.textContent = label;
+      p.append(stage);
+    });
+  });
+
+  const cards = document.querySelectorAll('.project-card');
+  if (!('IntersectionObserver' in window)) {
+    cards.forEach(c => c.classList.add('is-live'));
+    return;
+  }
+  const io = new IntersectionObserver(
+    entries => entries.forEach(e => e.target.classList.toggle('is-live', e.isIntersecting)),
+    { rootMargin: '-30% 0px -30% 0px' }
+  );
+  cards.forEach(c => io.observe(c));
+})();
+
+/* ---------- Stack filter ----------
+   Builds filter chips from every .tag on the Projects page. Picking
+   one dims projects that don't use it. Tags inside cards are
+   clickable too, and ?stack=React in the URL preselects a filter. */
+(() => {
+  const bar = document.querySelector('.stack-filter');
+  if (!bar) return;
+
+  const cards = [...document.querySelectorAll('.project-card')];
+  const tagsOf = card => [...card.querySelectorAll('.tag')];
+  const stackOf = card => tagsOf(card).map(t => t.textContent.trim());
+
+  // Most-used tech first, then alphabetical.
+  const counts = {};
+  cards.flatMap(stackOf).forEach(s => { counts[s] = (counts[s] || 0) + 1; });
+  const stacks = Object.keys(counts).sort((a, b) => counts[b] - counts[a] || a.localeCompare(b));
+
+  const makeChip = (label, value) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip';
+    b.dataset.stack = value;
+    b.textContent = label;
+    bar.append(b);
+    return b;
+  };
+  const chips = [makeChip('all', ''), ...stacks.map(s => makeChip(s, s))];
+  const count = document.createElement('span');
+  count.className = 'stack-count';
+  count.setAttribute('aria-live', 'polite');
+  bar.after(count);
+
+  let current = '';
+  const apply = stack => {
+    current = stacks.includes(stack) ? stack : '';
+    chips.forEach(c => c.setAttribute('aria-pressed', c.dataset.stack === current));
+    let shown = 0;
+    cards.forEach(card => {
+      const match = !current || stackOf(card).includes(current);
+      card.classList.toggle('is-dimmed', !match);
+      if (match) shown++;
+      tagsOf(card).forEach(t => t.classList.toggle('is-match', !!current && t.textContent.trim() === current));
+    });
+    count.textContent = current
+      ? `// ${shown} of ${cards.length} use ${current}`
+      : `// ${cards.length} projects`;
+    try {
+      const url = new URL(location.href);
+      current ? url.searchParams.set('stack', current) : url.searchParams.delete('stack');
+      history.replaceState(null, '', url);
+    } catch (_) { /* file:// pages can refuse URL updates; filtering still works */ }
+  };
+
+  chips.forEach(c => c.addEventListener('click', () => apply(c.dataset.stack === current ? '' : c.dataset.stack)));
+  cards.forEach(card => tagsOf(card).forEach(t => {
+    t.addEventListener('click', () => apply(t.textContent.trim() === current ? '' : t.textContent.trim()));
+  }));
+
+  apply(new URLSearchParams(location.search).get('stack') || '');
 })();
