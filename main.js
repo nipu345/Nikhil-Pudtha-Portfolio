@@ -321,3 +321,82 @@
     io.observe(el);
   });
 })();
+
+/* ---------- Experience timeline ----------
+   Draws each experience entry as a bar on a shared month axis so
+   overlapping roles are easy to see. Hovering a bar highlights its
+   entry (and vice versa); clicking a bar scrolls to the entry.
+   Entries without data-end run up to today. */
+(() => {
+  const host = document.querySelector('.timeline');
+  if (!host) return;
+
+  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const toMonth = s => { const [y, m] = s.split('-').map(Number); return y * 12 + m - 1; };
+  const today = new Date();
+  const now = today.getFullYear() * 12 + today.getMonth() + (today.getDate() - 1) / 31;
+
+  const items = [...document.querySelectorAll('.r-entry[data-start]')].map(entry => ({
+    entry,
+    start: toMonth(entry.dataset.start),
+    end: entry.dataset.end ? toMonth(entry.dataset.end) + 1 : now,
+    live: !entry.dataset.end,
+  }));
+  if (!items.length) return;
+
+  const min = Math.min(...items.map(i => i.start));
+  const max = Math.max(now, ...items.map(i => i.end)) + 1;
+  const pct = m => ((m - min) / (max - min)) * 100 + '%';
+  const make = (cls, parent, tag = 'div') => {
+    const el = document.createElement(tag);
+    el.className = cls;
+    parent.append(el);
+    return el;
+  };
+
+  const setActive = item => {
+    host.classList.toggle('has-active', !!item);
+    items.forEach(i => [i.entry, i.bar, i.label].forEach(el => el.classList.toggle('is-active', i === item)));
+  };
+
+  items.forEach((item, row) => {
+    item.label = make('tl-label', host, 'span');
+    item.label.textContent = item.entry.dataset.short;
+    item.label.style.gridRow = row + 1;
+    const track = make('tl-track', host);
+    track.style.gridRow = row + 1;
+    item.bar = make('tl-bar', track);
+    item.bar.dataset.tag = item.entry.dataset.tag;
+    item.bar.classList.toggle('is-live', item.live);
+    item.bar.style.left = pct(item.start);
+    item.bar.style.width = `calc(${pct(item.end)} - ${pct(item.start)})`;
+    item.bar.style.transitionDelay = row * 120 + 'ms';
+
+    item.bar.addEventListener('pointerenter', () => setActive(item));
+    item.bar.addEventListener('pointerleave', () => setActive(null));
+    item.bar.addEventListener('click', () => item.entry.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+    item.entry.addEventListener('pointerenter', () => setActive(item));
+    item.entry.addEventListener('pointerleave', () => setActive(null));
+  });
+
+  // Quarterly gridlines + labels, and a marker for today.
+  const overlay = make('tl-overlay', host);
+  overlay.style.gridRow = `1 / ${items.length + 1}`;
+  const axis = make('tl-axis', host);
+  axis.style.gridRow = items.length + 1;
+  for (let m = Math.ceil(min / 3) * 3; m < max; m += 3) {
+    make('tl-gridline', overlay).style.left = pct(m);
+    const tick = make('tl-tick', axis);
+    tick.style.left = pct(m);
+    tick.textContent = `${MONTHS[m % 12]} '${String(Math.floor(m / 12)).slice(2)}`;
+  }
+  make('tl-now', overlay).style.left = pct(now);
+
+  if (!('IntersectionObserver' in window)) return host.classList.add('is-visible');
+  const io = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    host.classList.add('is-visible');
+    io.disconnect();
+  }, { threshold: 0.4 });
+  io.observe(host);
+})();
