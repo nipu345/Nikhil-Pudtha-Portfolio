@@ -209,8 +209,9 @@
 
 /* ---------- Stack filter ----------
    Builds filter chips from every .tag on the Projects page. Picking
-   one dims projects that don't use it. Tags inside cards are
-   clickable too, and ?stack=React in the URL preselects a filter. */
+   one shows only the projects that use it, sliding them up into
+   place. Tags inside cards are clickable too, and ?stack=React in
+   the URL preselects a filter. */
 (() => {
   const bar = document.querySelector('.stack-filter');
   if (!bar) return;
@@ -240,18 +241,36 @@
   bar.after(count);
 
   let current = '';
-  const apply = stack => {
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const apply = (stack, animate = true) => {
     current = stacks.includes(stack) ? stack : '';
     chips.forEach(c => c.setAttribute('aria-pressed', c.dataset.stack === current));
+
+    // FLIP: remember where visible cards are, change the list, then
+    // animate each card from its old spot to its new one.
+    const before = new Map(cards.filter(c => !c.hidden).map(c => [c, c.getBoundingClientRect().top]));
     let shown = 0;
     cards.forEach(card => {
       const match = !current || stackOf(card).includes(current);
-      card.classList.toggle('is-dimmed', !match);
+      card.hidden = !match;
       if (match) shown++;
       tagsOf(card).forEach(t => t.classList.toggle('is-match', !!current && t.textContent.trim() === current));
     });
+    if (animate && !reduceMotion) {
+      cards.filter(c => !c.hidden).forEach(card => {
+        const top = card.getBoundingClientRect().top;
+        const easing = 'cubic-bezier(.2,.7,.3,1)';
+        if (before.has(card)) {
+          const dy = before.get(card) - top;
+          if (dy) card.animate([{ transform: `translateY(${dy}px)` }, { transform: 'none' }], { duration: 500, easing });
+        } else {
+          card.animate([{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { duration: 450, easing });
+        }
+      });
+    }
     count.textContent = current
-      ? `// ${shown} of ${cards.length} use ${current}`
+      ? `// showing ${shown} of ${cards.length} · ${current}`
       : `// ${cards.length} projects`;
     try {
       const url = new URL(location.href);
@@ -265,7 +284,7 @@
     t.addEventListener('click', () => apply(t.textContent.trim() === current ? '' : t.textContent.trim()));
   }));
 
-  apply(new URLSearchParams(location.search).get('stack') || '');
+  apply(new URLSearchParams(location.search).get('stack') || '', false);
 })();
 
 /* ---------- Card tilt + glow ----------
