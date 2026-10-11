@@ -32,6 +32,9 @@
         <line x1="15.5" y1="9.3" x2="18.5" y2="9.3"></line>
         <line x1="15.5" y1="12.2" x2="18.5" y2="12.2"></line>
       </g>
+      <g id="ico-linkedin-mark" fill="currentColor" stroke="none">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+      </g>
     </defs>
   </svg>
 
@@ -51,7 +54,7 @@
     <div class="wrap">
       <div class="page-head" style="padding-bottom: 1.5rem;">
         <h2 class="page-title">Resume</h2>
-        <p class="page-sub">Education, experience, and skills</p>
+        <p class="page-sub">Education, experience, projects, and skills</p>
       </div>
 
       <div class="resume-card">
@@ -72,9 +75,9 @@
               <span class="r-entry-title">University of Colorado Boulder</span>
               <span class="r-entry-date">Aug 2024 — May 2028</span>
             </div>
-            <div class="r-entry-sub">B.S. Computer Science &middot; GPA 3.52 &middot; College of Engineering &amp; Applied Science</div>
+            <div class="r-entry-sub">B.S. Computer Science &middot; GPA 3.52 &middot; Boulder, CO</div>
             <ul>
-              <li>Relevant coursework: Data Structures, Discrete Structures, Linear Algebra, Design and Analysis of Database Systems, Software Development Methods, Algorithms, Computer Systems, Introduction to Data Science.</li>
+              <li>Relevant coursework: Data Structures, Algorithms, Computer Systems, Software Development Methods, Design and Analysis of Database Systems, Introduction to Data Science, Introduction to Artificial Intelligence, Applied Machine Learning, Linear Algebra.</li>
             </ul>
           </div>
         </div>
@@ -84,18 +87,6 @@
           <hr class="r-divider">
           <div class="timeline" aria-hidden="true"></div>
 
-          <div class="r-entry" data-start="2026-07" data-short="Mulongo" data-tag="1">
-            <div class="r-entry-top">
-              <span class="r-entry-title">Full-Stack Developer</span>
-              <span class="r-entry-date">Jul 2026 — Present</span>
-            </div>
-            <div class="r-entry-sub">Mulongo Inc (Startup) &middot; Denver, CO</div>
-            <ul>
-              <li>Developing cross-platform mobile UI for Oseer, a consumer wellness app, using Flutter and Dart with Provider-based state management and RESTful API integration.</li>
-              <li>Collaborating with the founder and designer to translate Figma mockups into production-ready code, writing unit and widget tests across iOS, Android, and web.</li>
-            </ul>
-          </div>
-
           <div class="r-entry" data-start="2026-08" data-short="CU OIT" data-tag="3">
             <div class="r-entry-top">
               <span class="r-entry-title">IT Service Center Student Analyst</span>
@@ -103,21 +94,32 @@
             </div>
             <div class="r-entry-sub">Office of Information Technology, CU Boulder &middot; Boulder, CO</div>
             <ul>
-              <li>Administer elevated-access IT systems to diagnose and resolve escalated support cases across endpoints, mobile platforms, VPN infrastructure, and cloud email for a 40,000+ user campus environment.</li>
-              <li>Maintain and audit the ITSC knowledge base and collaborate with Service Managers to improve documentation standards and first-contact resolution rates.</li>
+              <li>Manage identity and access management for CU Boulder&rsquo;s 35,000+ students, handling provisioning, password resets, MFA, permissions, and access requests through ServiceNow, Active Directory, and Oracle Identity Manager.</li>
+              <li>Troubleshoot recurring login and access issues, update the IT Service Center&rsquo;s knowledge base with 10+ entries weekly, and work with OIT Service Managers to improve account security and the support experience.</li>
+            </ul>
+          </div>
+
+          <div class="r-entry" data-start="2026-07" data-short="Mulongo" data-tag="1">
+            <div class="r-entry-top">
+              <span class="r-entry-title">Software Engineer Intern (Full-Stack)</span>
+              <span class="r-entry-date">Jul 2026 — Present</span>
+            </div>
+            <div class="r-entry-sub">Mulongo Inc (Startup) &middot; Denver, CO</div>
+            <ul>
+              <li>Develop mobile interfaces for Oseer, an AI-powered consumer health app, using Flutter, Dart, and Provider.</li>
+              <li>Integrate REST APIs and build new features from Figma designs, collaborating with the team to refine functionality, while writing unit and widget tests to maintain application stability across iOS and Android.</li>
             </ul>
           </div>
 
           <div class="r-entry" data-start="2026-06" data-end="2026-08" data-short="Pfizer" data-tag="2">
             <div class="r-entry-top">
-              <span class="r-entry-title">AI Pipeline Extern</span>
+              <span class="r-entry-title">AI/ML Engineering Extern</span>
               <span class="r-entry-date">Jun 2026 — Aug 2026</span>
             </div>
             <div class="r-entry-sub">Pfizer, via Extern &middot; Remote</div>
             <ul>
-              <li>Built an end-to-end NLP pipeline using OCR (Tesseract, PaddleOCR) and RAG to extract, classify, and retrieve data from pharmaceutical vendor documents.</li>
-              <li>Developed and optimized a RAG-based retrieval system with LlamaIndex and open-source LLMs (Mistral, Phi-2), improving performance through chunking and model tuning.</li>
-              <li>Produced technical documentation on performance findings and deployment trade-offs, and built a demo UI to present results.</li>
+              <li>Built an NLP pipeline to process unstructured data from 100+ pharmaceutical documents using Tesseract, PaddleOCR, LlamaIndex, and open-source LLMs from Hugging Face, achieving 95% retrieval accuracy with a RAG system.</li>
+              <li>Documented system performance and deployment recommendations, and built a demo UI to present results to the team.</li>
             </ul>
           </div>
 
@@ -128,8 +130,61 @@
             </div>
             <div class="r-entry-sub">CU Hyperloop (Student Organization) &middot; Boulder, CO</div>
             <ul>
-              <li>Develop and debug C++ and Python navigation software for a student-built hyperloop capsule, implementing serial data filtering algorithms to improve sensor reliability.</li>
-              <li>Design and test hardware-software interfaces connecting Arduino components to the capsule's navigation software, validating reliable cross-system communication.</li>
+              <li>Develop and debug C++ and Python software for a student-built hyperloop capsule, filtering noisy data from 10+ sensors to improve accuracy and overall sensor output.</li>
+              <li>Design and test Arduino interfaces to support reliable communication between hardware and navigation software.</li>
+            </ul>
+          </div>
+
+          <div class="r-entry" data-start="2025-08" data-end="2026-05" data-short="Course Asst" data-tag="1">
+            <div class="r-entry-top">
+              <span class="r-entry-title">Course Assistant</span>
+              <span class="r-entry-date">Aug 2025 — May 2026</span>
+            </div>
+            <div class="r-entry-sub">University of Colorado Boulder, Dept. of Computer Science &middot; Boulder, CO</div>
+            <ul>
+              <li>Helped lead recitations of 20&ndash;30 students for CSCI 1300 (Intro to Programming), covering core programming concepts.</li>
+              <li>Held office hours and provided 1:1 help with programming assignments, debugging, and course concepts.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="r-section">
+          <span class="r-label">Projects</span>
+          <hr class="r-divider">
+
+          <div class="r-entry">
+            <div class="r-entry-top">
+              <span class="r-entry-title">KBFind &mdash; Semantic Knowledge Base Search</span>
+              <span class="r-entry-date">Aug 2026</span>
+            </div>
+            <div class="r-entry-sub">FastAPI, Docker, AWS (Lambda, S3, DynamoDB), Hugging Face</div>
+            <ul>
+              <li>Built a semantic search service for 50+ IT troubleshooting documents using sentence-transformer embeddings and cosine similarity to find relevant results from natural-language queries.</li>
+              <li>Containerized and deployed the service to AWS Lambda using Docker and ECR, with S3 for document storage and DynamoDB for embeddings.</li>
+            </ul>
+          </div>
+
+          <div class="r-entry">
+            <div class="r-entry-top">
+              <span class="r-entry-title">Prism &mdash; B2B Sales Analytics Platform</span>
+              <span class="r-entry-date">Jul 2026</span>
+            </div>
+            <div class="r-entry-sub">FastAPI, React, PostgreSQL, Node.js, Google Gemini API</div>
+            <ul>
+              <li>Built a sales forecasting tool for businesses using ARIMA, Holt-Winters, and growth-curve models with SciPy, statsmodels, and scikit-learn to compare different sales prediction methods on a 4,000+ record dataset.</li>
+              <li>Built a FastAPI backend and React frontend with Supabase for forecast storage and visualization.</li>
+            </ul>
+          </div>
+
+          <div class="r-entry">
+            <div class="r-entry-top">
+              <span class="r-entry-title">StudentSteals &mdash; AI Student Finance App</span>
+              <span class="r-entry-date">Mar 2026</span>
+            </div>
+            <div class="r-entry-sub">React, Python, Flask, Google Gemini API, Google Places API</div>
+            <ul>
+              <li>Built a full-stack budgeting app at HackCU12 with an AI coach that analyzes spending habits and provides personalized financial guidance for college students.</li>
+              <li>Integrated Google Places API to find 20+ nearby student deals and display them on a live map based on the user&rsquo;s location.</li>
             </ul>
           </div>
         </div>
@@ -138,10 +193,11 @@
           <span class="r-label">Skills</span>
           <hr class="r-divider">
           <dl class="skills-grid">
-            <dt>Languages</dt><dd>Java, C++, Python, SQL, HTML/CSS, LaTeX</dd>
-            <dt>Frameworks &amp; Libraries</dt><dd>React, Node.js, Flask, Pandas, NumPy, LlamaIndex, HuggingFace, scikit-learn</dd>
-            <dt>Databases &amp; Tools</dt><dd>PostgreSQL, MySQL, Git, Docker, VS Code, Linux, AWS</dd>
-            <dt>Technical Areas</dt><dd>AI/ML Applications, Full-Stack Web Development, Embedded Systems &amp; Hardware-Software Integration, Systems-Level Debugging, Database Design, DevOps &amp; Cloud Infrastructure</dd>
+            <dt>Languages</dt><dd>Python, C++, Java, JavaScript, Dart, SQL, HTML/CSS</dd>
+            <dt>Frameworks &amp; Libraries</dt><dd>React, Node.js, Flask, FastAPI, Flutter, Pandas, NumPy, scikit-learn, LlamaIndex, Hugging Face</dd>
+            <dt>Databases &amp; Tools</dt><dd>PostgreSQL, MySQL, DynamoDB, AWS (Lambda, S3), Docker, Git, Linux, Figma</dd>
+            <dt>IT Support &amp; Systems</dt><dd>Technical Troubleshooting, ServiceNow, Active Directory, Oracle Identity Manager</dd>
+            <dt>Technical Areas</dt><dd>Full-Stack Web Development, Database Design, DevOps &amp; Cloud Infrastructure, Hardware-Software Integration</dd>
           </dl>
         </div>
       </div>
