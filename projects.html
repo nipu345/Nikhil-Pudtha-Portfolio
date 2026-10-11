@@ -35,6 +35,10 @@
         <line x1="7.5" y1="9" x2="16.5" y2="9"></line>
         <line x1="7.5" y1="12" x2="13.5" y2="12"></line>
       </g>
+      <g id="ico-search" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="10.5" cy="10.5" r="6.5"></circle>
+        <line x1="15.3" y1="15.3" x2="21" y2="21"></line>
+      </g>
       <g id="ico-github-mark" fill="currentColor" stroke="none">
         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
       </g>
@@ -66,27 +70,53 @@
 
         <article class="project-card">
           <div class="project-top">
+            <span class="icon-circle ic-4"><svg viewBox="0 0 24 24"><use href="#ico-search"></use></svg></span>
+            <span class="project-date">Aug 2026</span>
+          </div>
+          <div class="project-title-row">
+            <h3>KBFind</h3>
+            <a class="gh-link" href="https://github.com/nipu345/KBFind" target="_blank" rel="noopener noreferrer" aria-label="View KBFind on GitHub"><svg viewBox="0 0 16 16" width="15" height="15"><use href="#ico-github-mark"></use></svg></a>
+          </div>
+          <div class="project-kicker">Semantic Knowledge Base Search</div>
+          <div class="pipeline" data-stages="IT docs|Embeddings|DynamoDB|Cosine search|Results"></div>
+          <ul>
+            <li>Built a semantic search service for 50+ IT troubleshooting documents using sentence-transformer embeddings and cosine similarity to find relevant results from natural-language queries.</li>
+            <li>Containerized and deployed the service to AWS Lambda using Docker and ECR, with S3 for document storage and DynamoDB for embeddings.</li>
+          </ul>
+          <div class="tags">
+            <span class="tag" style="background:var(--tag1-bg);color:var(--tag1-text)">FastAPI</span>
+            <span class="tag" style="background:var(--tag2-bg);color:var(--tag2-text)">Docker</span>
+            <span class="tag" style="background:var(--tag3-bg);color:var(--tag3-text)">AWS</span>
+            <span class="tag" style="background:var(--tag4-bg);color:var(--tag4-text)">DynamoDB</span>
+            <span class="tag" style="background:var(--tag1-bg);color:var(--tag1-text)">Hugging Face</span>
+            <span class="tag" style="background:var(--tag2-bg);color:var(--tag2-text)">Python</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
             <span class="icon-circle ic-1"><svg viewBox="0 0 24 24"><use href="#ico-chart"></use></svg></span>
-            <span class="project-date">Jul 2026 — Present</span>
+            <span class="project-date">Jul 2026</span>
           </div>
           <div class="project-title-row">
             <h3>Prism</h3>
             <a class="gh-link" href="https://github.com/nipu345/prism" target="_blank" rel="noopener noreferrer" aria-label="View Prism on GitHub"><svg viewBox="0 0 16 16" width="15" height="15"><use href="#ico-github-mark"></use></svg></a>
           </div>
           <div class="project-kicker">B2B Sales Analytics Platform</div>
-          <div class="pipeline" data-stages="Sales data|Forecast agents ×3|FastAPI|React dashboard"></div>
+          <div class="pipeline" data-stages="4,000+ sales records|ARIMA · Holt-Winters · growth|FastAPI|React dashboard"></div>
           <ul>
-            <li>Applied numerical optimization and model selection (scipy, statsmodels, scikit-learn) to architect three ML-driven forecasting agents for data-driven revenue projections across multiple risk scenarios.</li>
-            <li>Built a FastAPI backend and React frontend with Supabase for real-time data storage and authentication.</li>
+            <li>Built a sales forecasting tool for businesses using ARIMA, Holt-Winters, and growth-curve models with SciPy, statsmodels, and scikit-learn to compare different sales prediction methods on a 4,000+ record dataset.</li>
+            <li>Built a FastAPI backend and React frontend with Supabase for forecast storage and visualization.</li>
           </ul>
           <div class="tags">
-            <span class="tag" style="background:var(--tag1-bg);color:var(--tag1-text)">PostgreSQL</span>
-            <span class="tag" style="background:var(--tag2-bg);color:var(--tag2-text)">FastAPI</span>
-            <span class="tag" style="background:var(--tag3-bg);color:var(--tag3-text)">React</span>
-            <span class="tag" style="background:var(--tag4-bg);color:var(--tag4-text)">Supabase</span>
-            <span class="tag" style="background:var(--tag1-bg);color:var(--tag1-text)">Node.js</span>
-            <span class="tag" style="background:var(--tag2-bg);color:var(--tag2-text)">Python</span>
-            <span class="tag" style="background:var(--tag3-bg);color:var(--tag3-text)">scikit-learn</span>
+            <span class="tag" style="background:var(--tag1-bg);color:var(--tag1-text)">FastAPI</span>
+            <span class="tag" style="background:var(--tag2-bg);color:var(--tag2-text)">React</span>
+            <span class="tag" style="background:var(--tag3-bg);color:var(--tag3-text)">PostgreSQL</span>
+            <span class="tag" style="background:var(--tag4-bg);color:var(--tag4-text)">Node.js</span>
+            <span class="tag" style="background:var(--tag1-bg);color:var(--tag1-text)">Gemini API</span>
+            <span class="tag" style="background:var(--tag2-bg);color:var(--tag2-text)">Supabase</span>
+            <span class="tag" style="background:var(--tag3-bg);color:var(--tag3-text)">Python</span>
+            <span class="tag" style="background:var(--tag4-bg);color:var(--tag4-text)">scikit-learn</span>
           </div>
         </article>
 
@@ -98,16 +128,17 @@
           <div class="project-title-row">
             <h3>Document Intelligence Pipeline</h3>
           </div>
-          <div class="project-kicker">NLP Pipeline &middot; Pfizer AI Externship</div>
-          <div class="pipeline" data-stages="Vendor PDFs|OCR|Chunk + embed|RAG retrieval|Answers"></div>
+          <div class="project-kicker">NLP Pipeline &middot; Pfizer AI/ML Externship</div>
+          <div class="pipeline" data-stages="100+ vendor docs|OCR|Chunk + embed|RAG retrieval|Answers"></div>
           <ul>
-            <li>Built an end-to-end NLP pipeline using OCR (Tesseract, PaddleOCR) and RAG to extract, classify, and retrieve data from pharmaceutical vendor documents.</li>
-            <li>Developed and optimized a RAG-based retrieval system with LlamaIndex and open-source LLMs (Mistral, Phi-2), improving performance through chunking and model tuning.</li>
+            <li>Built an NLP pipeline to process unstructured data from 100+ pharmaceutical documents using Tesseract, PaddleOCR, LlamaIndex, and open-source LLMs from Hugging Face, achieving 95% retrieval accuracy with a RAG system.</li>
+            <li>Documented system performance and deployment recommendations, and built a demo UI to present results to the team.</li>
           </ul>
           <div class="tags">
-            <span class="tag" style="background:var(--tag2-bg);color:var(--tag2-text)">OCR</span>
-            <span class="tag" style="background:var(--tag3-bg);color:var(--tag3-text)">RAG</span>
-            <span class="tag" style="background:var(--tag4-bg);color:var(--tag4-text)">LlamaIndex</span>
+            <span class="tag" style="background:var(--tag1-bg);color:var(--tag1-text)">OCR</span>
+            <span class="tag" style="background:var(--tag2-bg);color:var(--tag2-text)">RAG</span>
+            <span class="tag" style="background:var(--tag3-bg);color:var(--tag3-text)">LlamaIndex</span>
+            <span class="tag" style="background:var(--tag4-bg);color:var(--tag4-text)">Hugging Face</span>
             <span class="tag" style="background:var(--tag1-bg);color:var(--tag1-text)">Python</span>
           </div>
         </article>
@@ -124,11 +155,12 @@
           <div class="project-kicker">AI Student Finance App &middot; HackCU12</div>
           <div class="pipeline" data-stages="Bank sync|Categorize|Gemini coach|Insights"></div>
           <ul>
-            <li>Built a full-stack AI-powered mobile and web app integrating Google Gemini for personalized financial coaching and Google Places API for proximity-based deal discovery.</li>
-            <li>Designed a bank sync system with real-time transaction categorization and an AI budget coach that generates spending insights from user financial data.</li>
+            <li>Built a full-stack budgeting app at HackCU12 with an AI coach that analyzes spending habits and provides personalized financial guidance for college students.</li>
+            <li>Integrated Google Places API to find 20+ nearby student deals and display them on a live map based on the user&rsquo;s location.</li>
           </ul>
           <div class="tags">
-            <span class="tag" style="background:var(--tag2-bg);color:var(--tag2-text)">React</span>
+            <span class="tag" style="background:var(--tag1-bg);color:var(--tag1-text)">React</span>
+            <span class="tag" style="background:var(--tag2-bg);color:var(--tag2-text)">Python</span>
             <span class="tag" style="background:var(--tag3-bg);color:var(--tag3-text)">Flask</span>
             <span class="tag" style="background:var(--tag4-bg);color:var(--tag4-text)">Gemini API</span>
             <span class="tag" style="background:var(--tag1-bg);color:var(--tag1-text)">Places API</span>
