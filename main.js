@@ -267,3 +267,57 @@
 
   apply(new URLSearchParams(location.search).get('stack') || '');
 })();
+
+/* ---------- Card tilt + glow ----------
+   Cards tilt toward the cursor and a soft spotlight follows it.
+   Mouse/trackpad only, and off for reduced-motion visitors. */
+(() => {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  document.querySelectorAll('.project-card, .hobby-card').forEach(card => {
+    card.classList.add('has-glow');
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      // Wide cards tilt less so they don't swing too far.
+      const max = 6 * Math.min(1, 380 / r.width);
+      card.style.setProperty('--mx', px * 100 + '%');
+      card.style.setProperty('--my', py * 100 + '%');
+      card.style.transform = `perspective(900px) rotateX(${(0.5 - py) * max}deg) rotateY(${(px - 0.5) * max}deg)`;
+    });
+    card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+  });
+})();
+
+/* ---------- Scroll reveals ----------
+   Sections fade up as they scroll into view, staggered when
+   several arrive at once. */
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!('IntersectionObserver' in window)) return;
+
+  const targets = document.querySelectorAll(
+    '.hero > div > *, .hero .graph, .page-head, .stack-filter, .project-card, .hobby-card, .resume-card > *'
+  );
+  const io = new IntersectionObserver(entries => {
+    entries.filter(e => e.isIntersecting).forEach((e, i) => {
+      const el = e.target;
+      const delay = i * 60;
+      io.unobserve(el);
+      el.style.transitionDelay = delay + 'ms';
+      el.classList.add('is-in');
+      // Hand the element back to its normal transitions once it has arrived.
+      setTimeout(() => {
+        el.style.transitionDelay = '';
+        el.classList.remove('reveal', 'is-in');
+      }, 800 + delay);
+    });
+  }, { rootMargin: '0px 0px -8% 0px' });
+
+  targets.forEach(el => {
+    el.classList.add('reveal');
+    io.observe(el);
+  });
+})();
