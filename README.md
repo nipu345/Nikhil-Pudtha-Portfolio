@@ -33,7 +33,7 @@ It's still plain HTML, CSS, and vanilla JavaScript: no frameworks, no build step
 | --- | --- | --- |
 | Skill graph | Home | Nodes lean toward your cursor. Hover one to light up its connections; click it to see projects that use that skill. |
 | Pipelines | Projects | Packets flow between the stages of each project while it's in the middle of your screen. |
-| Stack filter | Projects | Pick a technology to dim projects that don't use it. Tags on the cards are clickable too, and links like `?stack=React` open with a filter preselected. |
+| Stack filter | Projects | Pick a technology to dim projects that don't use it. Tags on the cards are clickable too. |
 | Tilt + spotlight | Projects, Hobbies | Cards tilt toward the cursor and a soft glow follows it. Mouse and trackpad only. |
 | Experience timeline | Resume | Roles drawn as bars on a shared month axis with a "now" marker. Hover a bar to highlight its entry; click it to jump there. |
 | GitHub activity | Hobbies | Repo count, last push, language mix, and latest repos from the GitHub API. Cached for an hour. |
