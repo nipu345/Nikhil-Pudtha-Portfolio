@@ -1,6 +1,6 @@
 # Nikhil Pudtha — Portfolio
 
-My personal portfolio: projects, resume, and hobbies, designed around how I actually build things — as systems where data flows from one stage to the next. Almost everything on the page reacts to you, so hover over it, click it, and scroll around.
+My personal portfolio: projects, resume, and hobbies. Almost everything on the page reacts to you, so hover over it, click it, and scroll around.
 
 **Live site:** https://nipu345.github.io/Nikhil-Pudtha-Portfolio/
 
@@ -14,7 +14,7 @@ _  _ _ _  _ _  _ _ _       ___  _  _ ___  ___ _  _ ____
 
 The site started as a clean, static four-page portfolio: a hero, project cards, a resume, and hobbies. It looked professional but felt like every other portfolio, so I wanted to make it more creative and interactive.
 
-I picked a "systems / data-flow" concept because most of my work is pipelines: documents → OCR → RAG retrieval, sales data → forecasting models → dashboard. 
+I picked a "data-flow" concept because most of my work is involving pipelines.
 
 It's still plain HTML, CSS, and vanilla JavaScript: no frameworks, no build step, no dependencies. GitHub Pages serves the files exactly as they are in this repo.
 
@@ -64,29 +64,15 @@ python3 -m http.server 8000
 # then visit http://localhost:8000
 ```
 
-## Making changes
-
-| To change | Edit |
-| --- | --- |
-| Skills in the hero graph | The `skills` list at the top of the skill graph block in `main.js` |
-| A project's pipeline stages | That card's `data-stages="A\|B\|C"` attribute in `projects.html` |
-| Filter options | Nothing to edit — they're built from each project's tags |
-| Timeline bars | The `data-start`, `data-end`, `data-short`, and `data-tag` attributes on each experience entry in `resume.html` (leave out `data-end` for current roles) |
-| GitHub account shown | `data-user` on the `.gh-activity` element in `hobbies.html` |
-| Colors / theme | The variables in `:root` at the top of `style.css` |
-
 ## What's next
 
 | Idea | Does |
 | --- | --- |
-| Command palette | Press ⌘K to search and jump to any page, project, or link |
 | Terminal mode | A toggle that turns the site into a shell where you can type `ls`, `cat resume`, or `open prism` |
 | Project deep dives | A dedicated page per project with architecture diagrams, demos, and what I learned |
 | Live project demos | Embed working versions of projects like KBFind's semantic search right on the page |
-| Tech blog | Short write-ups on things I'm learning, like RAG tuning, forecasting models, and AWS deployment |
-| Lighthouse 100s | Optimize images, fonts, and scripts for top performance and accessibility scores |
+| Tech blog | Short write-ups on new things I'm learning, like RAG tuning, forecasting models, and AWS deployment ||
 | Automated testing | Playwright tests and a GitHub Actions workflow that checks every push before it deploys |
-| Custom domain | Move off the github.io URL |
 
 ... to be continued
 
