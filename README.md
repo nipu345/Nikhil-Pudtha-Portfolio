@@ -12,7 +12,7 @@ _  _ _ _  _ _  _ _ _       ___  _  _ ___  ___ _  _ ____
 
 ## The idea behind it
 
-The site started as a clean, static four-page portfolio: a hero, project cards, a resume, and hobbies. It looked professional but felt like every other portfolio, so I wanted to make it more creative and interactive.
+The site started as a clean, static four-page portfolio: a main profile page, project cards, a resume, and hobbies. It looked professional but felt like every other portfolio, so I wanted to make it more creative and interactive.
 
 I picked a "data-flow" concept because most of my work is involving pipelines.
 
@@ -41,7 +41,6 @@ It's still plain HTML, CSS, and vanilla JavaScript: no frameworks, no build step
 | Page transitions | Everywhere | Pages cross-fade with the nav bar held in place (Chrome, Edge, Safari). |
 | Dark mode | Everywhere | Follows your system setting. |
 
-Everything respects **reduced motion**: if your system asks for less animation, the content just shows up.
 
 ## Project structure
 
@@ -68,16 +67,16 @@ python3 -m http.server 8000
 
 | Idea | Does |
 | --- | --- |
-| Terminal mode | A toggle that turns the site into a shell where you can type `ls`, `cat resume`, or `open prism` |
+| Terminal mode | A toggle that turns the site into a working terminal, where visitors can type commands like ls, cat resume, or cd projects to explore it |
 | Project deep dives | A dedicated page per project with architecture diagrams, demos, and what I learned |
 | Live project demos | Embed working versions of projects like KBFind's semantic search right on the page |
-| Tech blog | Short write-ups on new things I'm learning, like RAG tuning, forecasting models, and AWS deployment ||
-| Automated testing | Playwright tests and a GitHub Actions workflow that checks every push before it deploys |
+| Tech blog | Short write-ups on new things I'm learning, like RAG tuning, forecasting models, and AWS deployment |
+| Automated testing | Add automated tests and a GitHub Actions workflow that runs them on every push before deploying |
 
 ... to be continued
 
 ## Security & privacy
 
-- Static site: no backend, no forms, no stored user data, and no API keys.
-- The only outside data is GitHub's public repo API. Every value from it is escaped before it goes on the page, so a repo name can't inject HTML or scripts.
-- External links open with `rel="noopener noreferrer"`.
+- Static site: No backend, no forms, no stored user data, and no API keys.
+- One outside data source: The site pulls repo info from GitHub’s public API, which the visitor’s browser requests directly. Every value is escaped before it’s displayed, so a repo name can’t inject HTML or scripts.
+- Safe external links: Links open with rel="noopener noreferrer", so the opened page can’t control your tab or see where the visitor came from.
